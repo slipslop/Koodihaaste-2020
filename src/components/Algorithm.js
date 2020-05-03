@@ -10,7 +10,9 @@ Graph.prototype.addNode = function(node){
     this.nodes.push(node);
     this.adjacencyList[node] = [];
 }
-
+/**
+ * push edge to the adjacencyList. For example, form node A you can go to B and its cost is 2 [ 'A' = node:'B', weight:2 ]
+ */
 Graph.prototype.addEdge = function(node1,node2,weight){
     this.adjacencyList[node1].push({node:node2,weight:weight});
     this.adjacencyList[node2].push({node:node1,weight:weight});
@@ -29,7 +31,9 @@ Graph.prototype.init = function(){
 function PriorityQueue(){
     this.collection = [];
 }
-
+/**
+ * Add element to the priority queue. From smallest weight to the biggest.
+ */
 PriorityQueue.prototype.addElement = function(arr){
 
     //let nodeValue = arr[0];
@@ -51,12 +55,18 @@ PriorityQueue.prototype.addElement = function(arr){
         }
     }
 }
-
+/**
+ * Removes element from priorityqueue.
+ * @return element ( arr )
+ */
 PriorityQueue.prototype.removeElement = function() {
     //shift() method removes the first element from an array and returns that removed element. This method changes the length of the array.
     return this.collection.shift();
 }
 
+/**
+ * @return bool true of false
+ */
 PriorityQueue.prototype.isEmpty = function(){
     return (this.collection.length === 0);
 }
@@ -64,9 +74,12 @@ var graph = new Graph();
 graph.init();
 
 
-
+/**
+ * 
+ * @param startNode node, where we want to start from.
+ * @param endNode node, where we want to end up. 
+ */
 function findPath(startNode, endNode){
-    console.log("sain " + startNode + " " + endNode);
     let times = {};
     let backtrace = {};
     let pq = new PriorityQueue();
@@ -76,14 +89,12 @@ function findPath(startNode, endNode){
             times[node] = Infinity;
         }
     });
-    console.log(times);
     //add starting node
     pq.addElement([startNode,0]);
     while(!pq.isEmpty()){
         let shortestStep = pq.removeElement();
         let currentNode = shortestStep[0];
         graph.adjacencyList[currentNode].forEach(function(neighbor){
-            //console.log(neighbor);
             let time = times[currentNode] + neighbor.weight;
             if(time < times[neighbor.node]) {
                 times[neighbor.node] = time;
@@ -95,16 +106,12 @@ function findPath(startNode, endNode){
     }
     let path = [endNode];
     let lastStep = endNode;  
-    //console.log("backtrace is ");
-    //console.log(times);
     while(lastStep !== startNode) {
         path.unshift(backtrace[lastStep])
         lastStep = backtrace[lastStep]
-        //console.log(path);
     }
 
     let lines = returnLinjasto(path);
-    console.log(lines);
     let answer = {
         'path' : path,
         'duration' : times[endNode],
@@ -132,7 +139,6 @@ function returnLinjasto(path){
 
 function getLinjasto(stops){
     var lines = "";
-    //console.log("sain " + stops);
     Object.keys(data.linjastot).map(function(key,index) {
         //ota linjaston kaikki pysäkit
         // tsekkaa onko siinä kyseisessä linjastossa kaikki stops pysäkit
@@ -152,5 +158,3 @@ function getLinjasto(stops){
     
 }
 export default findPath;
-
-//console.log(findPath(start,end));

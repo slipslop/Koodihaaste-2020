@@ -25,20 +25,16 @@ function RouteSelection(){
 
     function calculateRoute(){
       if(from && to) {
-        //console.log("ok, i got all " + from + " " + to);
         let res = findPath(from,to);
-        setStates(res);
-        
+        setStates(res);  
       }
     }
     function setStates(res){
-      console.log(from);
       clearPathAndLines();
       setPath([...path,res.path]);
       setLines([...lines,res.lines]);
       setDuration(res.duration);
       setShowResults(true);
-      console.log(path);
     }
     function clearPathAndLines(){
       setPath(path.splice(0,path.length));
@@ -50,6 +46,7 @@ function RouteSelection(){
           <View style={styles.routeSelectionWrapper}>
             <Text style={styles.routeSelectionText}>Mistä pysäkiltä haluaisit matkustaa?</Text>
             <View style={styles.routeSelection}>
+
               {json.pysakit.map((stop,b) => {
                   return (
                   <TouchableOpacity key={b} style={styles.selectStopButton} onPress={(e) => setFromStop(e,stop)}>
@@ -57,11 +54,13 @@ function RouteSelection(){
                   </TouchableOpacity>
                   );
               })}
-              </View>
+              
+            </View>
           </View>
           <View style={styles.routeSelectionWrapper}>
             <Text style={styles.routeSelectionText}>Minne haluaisit matkustaa?</Text>
             <View style={styles.routeSelection}>
+
               {json.pysakit.map((stop,b) => {
                   return (
                   <TouchableOpacity key={b} style={styles.selectStopButton} onPress={() => setToStop(stop)}>
@@ -69,6 +68,7 @@ function RouteSelection(){
                   </TouchableOpacity>
                   );
               })}
+
             </View>
           </View>
         </View>
