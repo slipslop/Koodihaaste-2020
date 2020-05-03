@@ -1,0 +1,37 @@
+
+.container{
+    flex:1;
+    background-color:#fff;
+    align-items:center;
+    justify-content: center;
+}
+.wrapper{
+    padding:10px;
+    text-align: center;
+}
+.selectRoute {
+    width:50%;
+    display:flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+.dark-turqoise {
+    background-color:#1C364A;
+    transition: background-color .3s;
+}
+.dark-turqoise:hover{
+    background-color:#73ACCF;
+}
+.turqoise {
+    background-color:#73ACCF;
+}
+.turqoise:hover {
+    background-color:#1C364A;
+}
+button {
+    padding: 20px 20px;
+    margin: 5px 5px;
+    border: none;
+    color:white;
+    font-weight: 700;
+}
